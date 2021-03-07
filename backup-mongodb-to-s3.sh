@@ -3,7 +3,7 @@
 # Current time, this will be the file name
 FILENAME=`/bin/date +%Y-%m-%d-%Hh%Ms%S`.gz
 # Separate Uploads using date as folders
-TIMEPATH=`/bin/date +"%Y/%m/%d"` 
+TIMEPATH=`/bin/date +"%Y/%m/%d"`
 
 # temp directory
 DEST=/volume/tmp
@@ -19,10 +19,10 @@ echo "Backing up $MONGO_URI to $AWS_TARGET_BUCKET/$TIMEPATH on $FILENAME";
 /usr/bin/mongodump --uri $MONGO_URI --archive=$FILENAME_FULL --gzip
 
 # Upload tar to s3
-/usr/bin/aws s3 cp $FILENAME_FULL $AWS_TARGET_BUCKET/$TIMEPATH/$FILENAME
+/usr/bin/aws s3 cp $FILENAME_FULL s3://$AWS_TARGET_BUCKET/$TIMEPATH/$FILENAME
 
 # Remove tar file locally
 /bin/rm -f $FILENAME_FULL
 
 # All done
-echo "Backup available at $AWS_TARGET_BUCKET/$TIMEPATH/$FILENAME"
+echo "Backup available at s3://$AWS_TARGET_BUCKET/$TIMEPATH/$FILENAME"
