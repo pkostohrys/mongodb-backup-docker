@@ -1,0 +1,16 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: backup
+spec:
+  #schedule: "0 6 * * *"
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup
+              image: pkostohrys/mongo-backup-brb
+              imagePullPolicy: Always
+          restartPolicy: OnFailure
